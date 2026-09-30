@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>차범진 | GitHub 스타일 프로필</title>
+
+  <style>
+    :root {
+      --bg-primary: #0d1117;
+      --bg-secondary: #161b22;
+      --border-color: #30363d;
+      --text-primary: #c9d1d9;
+      --text-secondary: #8b949e;
+      --accent-color: #58a6ff;
+      --success-color: #3fb950;
+      --card-hover: #21262c;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1024px;
+      margin: 0 auto;
+      padding: 24px 16px;
+    }
+
+    /* 헤더 영역 */
+    .profile-header {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .profile-header {
+        flex-direction: row;
+        align-items: flex-start;
+      }
+    }
+
+    .avatar-placeholder {
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(135deg, #238636 0%, #2ea043 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      font-weight: bold;
+      color: white;
+      border: 2px solid var(--border-color);
+      flex-shrink: 0;
+    }
+
+    .profile-info {
+      flex: 1;
+    }
+
+    .profile-name {
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .profile-username {
+      font-size: 20px;
+      color: var(--text-secondary);
+      font-weight: 400;
+      margin-bottom: 16px;
+    }
+
+    .profile-bio {
+      font-size: 16px;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    .profile-stats {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 14px;
+      color: var(--text-primary);
+    }
+
+    .stat-item strong {
+      color: var(--accent-color);
+    }
+
+    .stat-icon {
+      color: var(--text-secondary);
+    }
+
+    /* 메인 컨텐츠 */
+    .main-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .main-content {
+        grid-template-columns: 2fr 1fr;
+      }
+    }
+
+    /* 카드 스타일 */
+    .card {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .card-icon {
+      color: var(--text-secondary);
+      font-size: 16px;
+    }
+
+    .card-content {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    /* 핀된 저장소 스타일 */
+    .pinned-repos {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    @media (min-width: 500px) {
+      .pinned-repos {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .repo-item {
+      background-color: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 16px;
+      transition: border-color 0.2s;
+    }
+
+    .repo-item:hover {
+      border-color: var(--text-secondary);
+    }
+
+    .repo-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent-color);
+      margin-bottom: 4px;
+    }
+
+    .repo-description {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .repo-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .language-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .lang-python { background-color: #3572A5; }
+    .lang-javascript { background-color: #f1e05a; }
+    .lang-html { background-color: #e34c26; }
+
+    /* 기여 그래프 스타일 */
+    .contribution-graph {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 3px;
+      margin-top: 12px;
+    }
+
+    .contribution-cell {
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      background-color: #161b22;
+    }
+
+    .contribution-cell.level-0 { background-color: #161b22; }
+    .contribution-cell.level-1 { background-color: #0e4429; }
+    .contribution-cell.level-2 { background-color: #006d32; }
+    .contribution-cell.level-3 { background-color: #26a641; }
+    .contribution-cell.level-4 { background-color: #39d353; }
+
+    /* 기술 스택 */
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .tech-badge {
+      background-color: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 4px 12px;
+      font-size: 12px;
+      color: var(--accent-color);
+    }
+
+    /* 푸터 */
+    footer {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- 프로필 헤더 -->
+    <header class="profile-header">
+      <div class="avatar-placeholder">CBJ</div>
+      <div class="profile-info">
+        <h1 class="profile-name">차범진</h1>
+        <p class="profile-username">@chabeomjin</p>
+        <p class="profile-bio">청주대학교 경영학과 4학년 | AI 기반 자동화 프로토타입 개발</p>
+        
+        <div class="profile-stats">
+          <div class="stat-item">
+            <span class="stat-icon">📍</span>
+            <span>청주시, 대한민국</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-icon">🎓</span>
+            <span>청주대학교</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-icon">💼</span>
+            <span>인사(HR) · 마케팅</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="main-content">
+      <!-- 왼쪽 컬럼 -->
+      <div class="left-column">
+        <!-- 핀된 프로젝트 -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-icon">📌</span>
+            <h2 class="card-title">관심 프로젝트</h2>
+          </div>
+          <div class="pinned-repos">
+            <div class="repo-item">
+              <div class="repo-name">HR Analytics Dashboard</div>
+              <div class="repo-description">인사 데이터 시각화 및 분석 대시보드</div>
+              <div class="repo-meta">
+                <span><span class="language-dot lang-python"></span> Python</span>
+                <span>⭐ 12</span>
+              </div>
+            </div>
+            <div class="repo-item">
+              <div class="repo-name">Marketing Automation</div>
+              <div class="repo-description">마케팅 업무 자동화 프로토타입</div>
+              <div class="repo-meta">
+                <span><span class="language-dot lang-javascript"></span> JavaScript</span>
+                <span>⭐ 8</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 기여 활동 -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-icon">📊</span>
+            <h2 class="card-title">학습 활동</h2>
+          </div>
+          <div class="card-content">
+            <p style="margin-bottom: 8px;">최근 학습 및 프로젝트 활동</p>
+            <div class="contribution-graph">
+              <!-- 더미 데이터 (Plotly 스타일 히트맵) -->
+              <div class="contribution-cell level-1"></div>
+              <div class="contribution-cell level-2"></div>
+              <div class="contribution-cell level-3"></div>
+              <div class="contribution-cell level-4"></div>
+              <div class="contribution-cell level-2"></div>
+              <div class="contribution-cell level-1"></div>
+              <div class="contribution-cell level-0"></div>
+              <div class="contribution-cell level-2"></div>
+              <div class="contribution-cell level-3"></div>
+              <div class="contribution-cell level-4"></div>
+              <div class="contribution-cell level-3"></div>
+              <div class="contribution-cell level-2"></div>
+              <div class="contribution-cell level-1"></div>
+              <div class="contribution-cell level-2"></div>
+              <div class="contribution-cell level-3"></div>
+              <div class="contribution-cell level-4"></div>
+              <div class="contribution-cell level-4"></div>
+              <div class="contribution-cell level-3"></div>
+              <div class="contribution-cell level-2"></div>
+              <div class="contribution-cell level-1"></div>
+              <div class="contribution-cell level-2"></div>
+              <div class="contribution-cell level-3"></div>
+              <div class="contribution-cell level-4"></div>
+              <div class="contribution-cell level-3"></div>
+              <div class="contribution-cell level-2"></div>
+              <div class="contribution-cell level-1"></div>
+              <div class="contribution-cell level-0"></div>
+              <div class="contribution-cell level-1"></div>
+              <div class="contribution-cell level-2"></div>
+              <div class="contribution-cell level-3"></div>
+              <div class="contribution-cell level-2"></div>
+              <div class="contribution-cell level-1"></div>
+              <div class="contribution-cell level-2"></div>
+              <div class="contribution-cell level-3"></div>
+              <div class="contribution-cell level-4"></div>
+              <div class="contribution-cell level-3"></div>
+              <div class="contribution-cell level-2"></div>
+              <div class="contribution-cell level-1"></div>
+              <div class="contribution-cell level-0"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 오른쪽 컬럼 -->
+      <div class="right-column">
+        <!-- 기술 스택 -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-icon">🛠️</span>
+            <h2 class="card-title">기술 스택</h2>
+          </div>
+          <div class="tech-stack">
+            <span class="tech-badge">Python</span>
+            <span class="tech-badge">JavaScript</span>
+            <span class="tech-badge">HTML/CSS</span>
+            <span class="tech-badge">Plotly</span>
+            <span class="tech-badge">Pandas</span>
+            <span class="tech-badge">Excel</span>
+          </div>
+        </div>
+
+        <!-- 좋아하는 것 -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-icon">❤️</span>
+            <h2 class="card-title">관심사</h2>
+          </div>
+          <div class="card-content">
+            <ul style="list-style: none; padding-left: 0;">
+              <li style="padding: 6px 0; border-bottom: 1px solid var(--border-color);">💻 테크</li>
+              <li style="padding: 6px 0; border-bottom: 1px solid var(--border-color);">🐾 동물</li>
+              <li style="padding: 6px 0;">📚 학습</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 목표 -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-icon">🚀</span>
+            <h2 class="card-title">목표</h2>
+          </div>
+          <div class="card-content">
+            <p>AI 를 활용한 단순 작업의 자동화를 위한 프로토타입 제작</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- 푸터 -->
+    <footer>
+      <p>© 2026 차범진. GitHub 스타일 프로필 페이지</p>
+    </footer>
+  </div>
+</body>
+</html>
